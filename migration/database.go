@@ -50,7 +50,7 @@ func executeSQLFile(fileString string){
 	db := NewDbConnection()
 	defer db.Close()
 	for _, stmt := range statements {
-		if strings.Contains(stmt, "CREATE"){
+		if strings.Contains(stmt, "EXISTS"){
 			_,err := db.Exec(string(stmt) + ";")
 			if err != nil{
 				fmt.Println(err)
