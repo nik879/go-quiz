@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS `results`;
+DROP TABLE IF EXISTS `answers`;
+DROP TABLE IF EXISTS `questions`;
+DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `users`;
