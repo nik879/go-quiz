@@ -24,6 +24,7 @@ type User struct {
 func (u *User) Register() (err error) {
 	db := migration.NewDbConnection()
 	stmtRegister,err := db.Prepare("INSERT INTO `users` (`username`, `pw_hash`) VALUES (?,?)")
+	defer stmtRegister.Close()
 	if err != nil {
 		return err
 	}
@@ -38,17 +39,13 @@ func (u *User) Register() (err error) {
 		return err
 	}
 
-	err = stmtRegister.Close()
-	if err != nil {
-		return err
-	}
-
 	return nil;
 }
 
 func (u *User) Login() (b bool,err error){
 	db := migration.NewDbConnection()
 	userQuery,err := db.Query("SELECT username, pw_hash FROM users WHERE username = ?",u.Username)
+	defer userQuery.Close()
 	if err != nil{
 		return false,err
 	}
