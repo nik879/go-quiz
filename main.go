@@ -2,8 +2,10 @@ package main
 
 import (
 	"github.com/gubesch/go-quiz/migration"
+	"github.com/gubesch/go-quiz/router"
 	"github.com/joho/godotenv"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -26,5 +28,6 @@ func main(){
 		port := os.Getenv("HTTP_PORT")
 		address := os.Getenv("LISTEN_ADDR")
 		log.Printf("Starting server on %s:%s", address, port)
+		log.Fatal(http.ListenAndServe(address + ":" + port, router.CreateRouter()))
 	}
 }

@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   ID INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
   pw_hash VARCHAR(255) NOT NULL,
+  UNIQUE KEY unique_username(username),
   PRIMARY KEY (ID)
 );
 

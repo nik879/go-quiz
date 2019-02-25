@@ -6,7 +6,7 @@ import (
 	"github.com/gubesch/go-quiz/middleware"
 )
 
-func CreateRouter() mux.Router {
+func CreateRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/auth/login", controllers.LoginUser).Methods("POST");
 	router.HandleFunc("/auth/register",controllers.RegisterUser).Methods("POST");
@@ -29,6 +29,6 @@ func CreateRouter() mux.Router {
 
 	subrouter.Use(middleware.ValidateMiddleware)
 
-	return *router
+	return router
 
 }
