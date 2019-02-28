@@ -8,13 +8,13 @@ import (
 
 func CreateRouter() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/auth/login", controllers.LoginUser).Methods("POST");
-	router.HandleFunc("/auth/register",controllers.RegisterUser).Methods("POST");
+	router.HandleFunc("/auth/login", controllers.LoginUser).Methods("POST"); //done
+	router.HandleFunc("/auth/register",controllers.RegisterUser).Methods("POST"); //done
 
 	subrouter := router.PathPrefix("/api").Subrouter()
 
 	categoryRouter := subrouter.PathPrefix("/category").Subrouter()
-	categoryRouter.HandleFunc("", controllers.ShowAllCategory).Methods("GET")
+	categoryRouter.HandleFunc("", controllers.ShowAllCategories).Methods("GET")
 	categoryRouter.HandleFunc("/create", controllers.CreateCategory).Methods("POST")
 	categoryRouter.HandleFunc("/{id}/edit", controllers.EditCategory).Methods("PUT")
 	categoryRouter.HandleFunc("/{id}/delete", controllers.DeleteCategory).Methods("DELETE")

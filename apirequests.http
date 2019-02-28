@@ -9,7 +9,7 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
-  "username": "Christian",
+  "username": "David",
   "password" : "P@ssw0rd"
 }
 
@@ -18,8 +18,44 @@ POST http://localhost:4000/auth/login
 Content-Type: application/json
 
 {
-  "username": "Christian",
+  "username": "David",
   "password" : "P@ssw0rd"
 }
+
+###
+
+GET http://localhost:4000/api/category
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEYXZpZCJ9.2iypOTd_0zQqcGs1RS7N-6bbyRxoIQxx4rOcZjxtjPU
+
+
+###
+
+POST http://localhost:4000/api/category/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJDaHJpc3RpYW4ifQ.gGpGDxmCmRfEIajzEQYhF02CaoI65jliHcZ08eb9eOo
+Content-Type: application/json
+
+{
+"category_name": "Naturwissenschaften"
+}
+
+
+###
+
+PUT http://localhost:4000/api/category/2/edit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEYXZpZCJ9.2iypOTd_0zQqcGs1RS7N-6bbyRxoIQxx4rOcZjxtjPU
+Content-Type: application/json
+
+{
+  "category_name": "Hallo123"
+}
+
+###
+
+
+DELETE http://localhost:4000/api/category/1/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEYXZpZCJ9.2iypOTd_0zQqcGs1RS7N-6bbyRxoIQxx4rOcZjxtjPU
+Content-Type: application/json
+
 
 ###

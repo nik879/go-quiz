@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/context"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -16,6 +18,7 @@ func ValidateMiddleware(next http.Handler) http.Handler {
 
 		//get the authorization header which contains a bearer token
 		authorizationHeader := r.Header.Get("Authorization")
+		log.Print(authorizationHeader)
 		if authorizationHeader != "" {
 			bearerToken := strings.Split(authorizationHeader, " ")
 			if len(bearerToken) == 2 {
@@ -24,9 +27,10 @@ func ValidateMiddleware(next http.Handler) http.Handler {
 						return nil, fmt.Errorf("There was an error")
 					}
 					//jwt-sample is the JWT secret this should be changed to a secure secret
-					return []byte("go-quiz"), nil
+					return []byte(os.Getenv("JWT_SECRET")), nil
 				})
 				if err != nil{
+					log.Print(err)
 					_=json.NewEncoder(w).Encode(err.Error())
 					return
 				}

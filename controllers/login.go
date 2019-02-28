@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gubesch/go-quiz/models"
 	"net/http"
+	"os"
 )
 
 func LoginUser(w http.ResponseWriter, r *http.Request){
@@ -21,12 +22,13 @@ func LoginUser(w http.ResponseWriter, r *http.Request){
 	if loginSuccessful {
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"username": user.Username,
+			"timestamp": 123123,
 		})
-		tokenString, err := token.SignedString([]byte("go-quiz"))
+		tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 		if err != nil{
 			_=json.NewEncoder(w).Encode(err)
 		}
-		_=json.NewEncoder(w).Encode(tokenString)
+		_=json.NewEncoder(w).Encode(map[string]interface{}{"jwt":tokenString})
 	} else {
 		_=json.NewEncoder(w).Encode("Login unsuccessful")
 	}
