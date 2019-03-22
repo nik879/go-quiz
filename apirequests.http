@@ -9,7 +9,7 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
-  "username": "David",
+  "username": "WOH",
   "password" : "P@ssw0rd"
 }
 
@@ -18,7 +18,7 @@ POST http://localhost:4000/auth/login
 Content-Type: application/json
 
 {
-  "username": "David",
+  "username": "WOH",
   "password" : "P@ssw0rd"
 }
 
@@ -26,17 +26,17 @@ Content-Type: application/json
 
 GET http://localhost:4000/api/category
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEYXZpZCJ9.2iypOTd_0zQqcGs1RS7N-6bbyRxoIQxx4rOcZjxtjPU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
 
 
 ###
 
 POST http://localhost:4000/api/category/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJDaHJpc3RpYW4ifQ.gGpGDxmCmRfEIajzEQYhF02CaoI65jliHcZ08eb9eOo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
 Content-Type: application/json
 
 {
-"category_name": "Naturwissenschaften"
+"category_name": "Zichen"
 }
 
 
@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyM
 Content-Type: application/json
 
 {
-  "category_name": "Hallo123"
+  "category_name": "Schnaps"
 }
 
 ###
@@ -57,5 +57,35 @@ DELETE http://localhost:4000/api/category/1/delete
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEYXZpZCJ9.2iypOTd_0zQqcGs1RS7N-6bbyRxoIQxx4rOcZjxtjPU
 Content-Type: application/json
 
+
+###
+
+###
+
+GET http://localhost:4000/api/question
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
+
+
+###
+
+POST http://localhost:4000/api/question/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
+Content-Type: application/json
+
+{
+  "question": "Ist Zichen das Beste?",
+  "category_id": 1,
+  "answers": [
+              {
+                "answer": "ja",
+                "correct": true
+              },
+              {
+                "answer": "nein",
+                "correct": false
+              }
+             ]
+}
 
 ###

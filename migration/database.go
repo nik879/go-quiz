@@ -3,28 +3,49 @@ package migration
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
-	_ "github.com/go-sql-driver/mysql"
 	"strings"
+	"sync"
+	"time"
 )
 
-func NewDbConnection() sql.DB {
 
-	//function for creating a database connection
-	driver := os.Getenv("DB_CONNECTION")
-	username := os.Getenv("DB_USERNAME")
-	password := os.Getenv("DB_PASSWORD")
-	domain := os.Getenv("DB_HOST")
-	dbName := os.Getenv("DB_DATABASE")
+// Database is a struct wrapper for *sql.DB
+type Database struct {
+	*sql.DB
+}
+var db Database
+var singleton sync.Once
+func GetDbInstance() *Database {
 
-	database, err := sql.Open(driver, username + ":" + password + "@" + domain + "/" + dbName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return *database
+	singleton.Do(func() {
+		//function for creating a database connection
+		driver := os.Getenv("DB_CONNECTION")
+		username := os.Getenv("DB_USERNAME")
+		password := os.Getenv("DB_PASSWORD")
+		domain := os.Getenv("DB_HOST")
+		dbName := os.Getenv("DB_DATABASE")
+
+		database, err := sql.Open(driver, username + ":" + password + "@" + domain + "/" + dbName)
+		if err != nil {
+			log.Fatal(err)
+		}
+		database.SetConnMaxLifetime(time.Minute * 20)
+		database.SetMaxOpenConns(10)
+		database.SetMaxIdleConns(4)
+		if err := database.Ping(); err != nil {
+			log.Fatal(err)
+		}
+
+		db = Database{
+			database,
+		}
+	})
+	return &db
 }
 
 func DropDatabase(){
@@ -47,8 +68,8 @@ func MigrateDatabase(){
 
 func executeSQLFile(fileString string){
 	statements := strings.Split(fileString, ";")
-	db := NewDbConnection()
-	defer db.Close()
+	db := GetDbInstance()
+	//defer db.Close()
 	for _, stmt := range statements {
 		if strings.Contains(stmt, "EXISTS"){
 			_,err := db.Exec(string(stmt) + ";")

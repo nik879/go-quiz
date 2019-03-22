@@ -8,8 +8,8 @@ type Category struct {
 }
 
 func ShowCategories() (allcategories []Category, err error) {
-	db := migration.NewDbConnection()
-	defer db.Close()
+	db := migration.GetDbInstance()
+	//defer db.Close()
 	categoryiesQuerie,err := db.Query("SELECT * FROM categories;")
 	defer categoryiesQuerie.Close()
 	if err != nil{
@@ -27,8 +27,8 @@ func ShowCategories() (allcategories []Category, err error) {
 }
 
 func (c *Category) CreateNewCategory() (err error){
-	db := migration.NewDbConnection()
-	defer db.Close()
+	db := migration.GetDbInstance()
+	//defer db.Close()
 	stmtInsertCategory,err := db.Prepare("INSERT INTO `categories` (`category_name`) VALUES (?);")
 	defer stmtInsertCategory.Close()
 	if err != nil {
@@ -42,8 +42,8 @@ func (c *Category) CreateNewCategory() (err error){
 }
 
 func (c *Category) EditCategory() (err error){
-	db := migration.NewDbConnection()
-	defer db.Close()
+	db := migration.GetDbInstance()
+	//defer db.Close()
 	stmtEditCategory,err := db.Prepare("UPDATE categories SET category_name = ? WHERE categories.id = ?;")
 	defer stmtEditCategory.Close()
 	if err != nil{
@@ -57,8 +57,8 @@ func (c *Category) EditCategory() (err error){
 }
 
 func (c *Category) DeleteCategory() (err error){
-	db := migration.NewDbConnection()
-	defer db.Close()
+	db := migration.GetDbInstance()
+	//defer db.Close()
 	stmtDeleteCategory,err := db.Prepare("DELETE FROM categories WHERE id=?;")
 	defer stmtDeleteCategory.Close()
 	if err != nil{
