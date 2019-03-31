@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/context"
+	"github.com/gorilla/mux"
 	"github.com/gubesch/go-quiz/models"
 	"net/http"
+	"strconv"
 )
 
 func ShowAllQuestions(w http.ResponseWriter, r *http.Request){
@@ -13,7 +15,7 @@ func ShowAllQuestions(w http.ResponseWriter, r *http.Request){
 	decoded := context.Get(r,"decoded")
 	fmt.Println(decoded)
 	//check for timestamp
-	questions,err := models.ShowQuestions()
+	questions,err := models.GetAllQuestions()
 	if err != nil{
 		_=json.NewEncoder(w).Encode(err)
 	} else {
@@ -35,14 +37,71 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request){
 	}
 }
 func EditQuestion(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	decoded := context.Get(r,"decoded")
+	fmt.Println(decoded)
+	//check for timestamp
+
+	parameters := mux.Vars(r)
+	var question models.Question
+	id,err := strconv.Atoi(parameters["id"])
+	if err != nil{
+		_=json.NewEncoder(w).Encode(err)
+	} else {
+		_ = json.NewDecoder(r.Body).Decode(&question)
+		question.ID = id
+		err = question.DeleteQuestion()
+		if err != nil{
+			_=json.NewEncoder(w).Encode(err)
+		}
+		err = question.CreateNewQuestion()
+		if err != nil{
+			_=json.NewEncoder(w).Encode(err)
+		} else {
+			_= json.NewEncoder(w).Encode("successfully edited this question")
+		}
+	}
 
 }
 func DeleteQuestion(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	decoded := context.Get(r,"decoded")
+	fmt.Println(decoded)
+	//check for timestamp
+	parameters := mux.Vars(r)
+	var question models.Question
+	id,err := strconv.Atoi(parameters["id"])
+	if err != nil{
+		_=json.NewEncoder(w).Encode(err)
+	} else {
+		question.ID = id
+		err = question.DeleteQuestion()
+		if err != nil{
+			_=json.NewEncoder(w).Encode(err)
+		} else {
+			_= json.NewEncoder(w).Encode("successfully deleted this question")
+		}
+	}
 
 }
 func AnswerQuestion(w http.ResponseWriter, r *http.Request){
 
 }
 func GetRandomQuestion(w http.ResponseWriter, r *http.Request){
-
+	w.Header().Set("Content-Type", "application/json")
+	decoded := context.Get(r,"decoded")
+	fmt.Println(decoded)
+	//check for timestamp
+	parameters := mux.Vars(r)
+	categoryID, err := strconv.Atoi(parameters["cat_id"])
+	if err != nil{
+		_=json.NewEncoder(w).Encode(err)
+	} else {
+		question,err := models.GetRandomQuestionPerCategory(categoryID)
+		if err != nil{
+			_=json.NewEncoder(w).Encode(err)
+		} else {
+			_=json.NewEncoder(w).Encode(question)
+		}
+	}
 }

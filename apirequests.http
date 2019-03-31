@@ -26,13 +26,13 @@ Content-Type: application/json
 
 GET http://localhost:4000/api/category
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
 
 
 ###
 
 POST http://localhost:4000/api/category/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
 Content-Type: application/json
 
 {
@@ -70,11 +70,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyM
 ###
 
 POST http://localhost:4000/api/question/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJEb21pbmlrIn0.26rU3HOPbZiAPUeUXNxwhXlRMP9zAul3QEsViiZTpMg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
 Content-Type: application/json
 
 {
-  "question": "Ist Zichen das Beste?",
+  "question": "DefreggerZichen?",
   "category_id": 1,
   "answers": [
               {
@@ -87,5 +87,11 @@ Content-Type: application/json
               }
              ]
 }
+
+###
+###
+GET http://localhost:4000/api/question/category/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
+Content-Type: application/json
 
 ###

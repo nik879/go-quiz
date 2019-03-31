@@ -18,7 +18,7 @@ type Answer struct {
 	QuestionID	int 	`json:"question_id,omitempty"`
 }
 
-func ShowQuestions() (allquestions []Question, err error) {
+func GetAllQuestions() (allquestions []Question, err error) {
 	db := migration.GetDbInstance()
 	questionsQuery, err := db.Query("SELECT * FROM questions;")
 	if err != nil{
@@ -35,12 +35,49 @@ func ShowQuestions() (allquestions []Question, err error) {
 	return
 }
 
+func GetRandomQuestionPerCategory(categoryID int) (randomQuestion Question, err error){
+	db := migration.GetDbInstance()
+	randQuestionQuery, err := db.Query("SELECT * FROM questions WHERE categoryID=? ORDER BY RAND() LIMIT 1;",categoryID)
+	defer randQuestionQuery.Close()
+	if err != nil{
+		return
+	}
+	randQuestionQuery.Next()
+	err = randQuestionQuery.Scan(&randomQuestion.ID,&randomQuestion.Question,&randomQuestion.CategoryID)
+	if err != nil{
+		return
+	}
+	answersQuery,err := db.Query("SELECT ID,answer FROM answers WHERE questionID=?;",randomQuestion.ID)
+	if err != nil{
+		return
+	}
+	for answersQuery.Next() {
+		var answer Answer
+		err = answersQuery.Scan(&answer.ID,&answer.Answer)
+		if err != nil{
+			return
+		}
+		randomQuestion.Answers = append(randomQuestion.Answers, answer)
+	}
+	return
+}
+
+
+func (q *Question) DeleteQuestion() (err error){
+	db := migration.GetDbInstance()
+	_, err = db.Exec("DELETE FROM `questions` WHERE ID=?;",q.ID)
+	if err != nil{
+		return
+	}
+	return nil
+}
+
 func (q *Question) CreateNewQuestion() (err error) {
 	db := migration.GetDbInstance()
 	tx,err := db.Begin()
 	InsertQuestionExec,err := tx.Exec("INSERT INTO `questions` (`question`,`categoryID`) VALUES (?,?);", q.Question,q.CategoryID)
 	if err != nil {
-		tx.Rollback()
+		_=tx.Rollback()
 		return
 	}
 	id,err :=InsertQuestionExec.LastInsertId()
@@ -50,13 +87,13 @@ func (q *Question) CreateNewQuestion() (err error) {
 	for _, element := range q.Answers {
 		_,err =tx.Exec("INSERT INTO `answers` (`answer`,`correct`,`questionID`) VALUES (?,?,?);",element.Answer,element.Correct,id)
 		if err != nil{
-			tx.Rollback()
+			_=tx.Rollback()
 			return
 		}
 	}
 	err = tx.Commit()
 	if err != nil{
-		tx.Rollback()
+		_=tx.Rollback()
 		return
 	}
 

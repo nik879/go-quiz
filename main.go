@@ -23,6 +23,9 @@ func main(){
 			migration.MigrateDatabase()
 		} else if argsWithoutProg[0] == "--migrate:rollback"{
 			migration.DropDatabase()
+		} else if argsWithoutProg[0] == "--migrate:fresh"{
+			migration.DropDatabase()
+			migration.MigrateDatabase()
 		}
 	} else {
 		port := os.Getenv("HTTP_PORT")

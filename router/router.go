@@ -25,7 +25,7 @@ func CreateRouter() *mux.Router {
 	questionRouter.HandleFunc("/{id}/edit", controllers.EditQuestion).Methods("PUT")
 	questionRouter.HandleFunc("/{id}/delete", controllers.DeleteQuestion).Methods("DELETE")
 	questionRouter.HandleFunc("/category/{cat_id}",controllers.GetRandomQuestion).Methods("GET")
-	questionRouter.HandleFunc("/{id}/answer",controllers.AnswerQuestion).Methods("POST")
+	questionRouter.HandleFunc("/{id}/answer/{answer_id}",controllers.AnswerQuestion).Methods("GET")
 
 	subrouter.Use(middleware.ValidateMiddleware)
 
