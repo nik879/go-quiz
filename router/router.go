@@ -14,17 +14,17 @@ func CreateRouter() *mux.Router {
 	subrouter := router.PathPrefix("/api").Subrouter()
 
 	categoryRouter := subrouter.PathPrefix("/category").Subrouter()
-	categoryRouter.HandleFunc("", controllers.ShowAllCategories).Methods("GET")
-	categoryRouter.HandleFunc("/create", controllers.CreateCategory).Methods("POST")
-	categoryRouter.HandleFunc("/{id}/edit", controllers.EditCategory).Methods("PUT")
-	categoryRouter.HandleFunc("/{id}/delete", controllers.DeleteCategory).Methods("DELETE")
+	categoryRouter.HandleFunc("", controllers.ShowAllCategories).Methods("GET") //done
+	categoryRouter.HandleFunc("/create", controllers.CreateCategory).Methods("POST") //done
+	categoryRouter.HandleFunc("/{id}/edit", controllers.EditCategory).Methods("PUT") //done
+	categoryRouter.HandleFunc("/{id}/delete", controllers.DeleteCategory).Methods("DELETE") //done
 
 	questionRouter := subrouter.PathPrefix("/question").Subrouter()
-	questionRouter.HandleFunc("", controllers.ShowAllQuestions).Methods("GET")
-	questionRouter.HandleFunc("/create", controllers.CreateQuestion).Methods("POST")
-	questionRouter.HandleFunc("/{id}/edit", controllers.EditQuestion).Methods("PUT")
-	questionRouter.HandleFunc("/{id}/delete", controllers.DeleteQuestion).Methods("DELETE")
-	questionRouter.HandleFunc("/category/{cat_id}",controllers.GetRandomQuestion).Methods("GET")
+	questionRouter.HandleFunc("", controllers.ShowAllQuestions).Methods("GET") //done
+	questionRouter.HandleFunc("/create", controllers.CreateQuestion).Methods("POST") //done
+	questionRouter.HandleFunc("/{id}/edit", controllers.EditQuestion).Methods("PUT") //done
+	questionRouter.HandleFunc("/{id}/delete", controllers.DeleteQuestion).Methods("DELETE") //done
+	questionRouter.HandleFunc("/category/{cat_id}",controllers.GetRandomQuestion).Methods("GET") //done
 	questionRouter.HandleFunc("/{id}/answer/{answer_id}",controllers.AnswerQuestion).Methods("GET")
 
 	subrouter.Use(middleware.ValidateMiddleware)

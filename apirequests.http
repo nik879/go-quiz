@@ -9,7 +9,7 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
-  "username": "WOH",
+  "username": "Makita",
   "password" : "P@ssw0rd"
 }
 
@@ -18,7 +18,7 @@ POST http://localhost:4000/auth/login
 Content-Type: application/json
 
 {
-  "username": "WOH",
+  "username": "Christian",
   "password" : "P@ssw0rd"
 }
 
@@ -26,17 +26,17 @@ Content-Type: application/json
 
 GET http://localhost:4000/api/category
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJDaHJpc3RpYW4ifQ.XspJECGRJfZT_oCoFgO2v7Di8r5acDpyGJjCDTdP-II
 
 
 ###
 
 POST http://localhost:4000/api/category/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJDaHJpc3RpYW4ifQ.XspJECGRJfZT_oCoFgO2v7Di8r5acDpyGJjCDTdP-II
 Content-Type: application/json
 
 {
-"category_name": "Zichen"
+"category_name": "Sport"
 }
 
 
@@ -70,28 +70,38 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyM
 ###
 
 POST http://localhost:4000/api/question/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJQZXRlciJ9.PAgcZc5VBiK3dI2m-UF6WmbC27yAHAuWug4JGFC0LDM
 Content-Type: application/json
 
 {
-  "question": "DefreggerZichen?",
-  "category_id": 1,
+  "question": "Wer hält den Weltrekord im 100m Sprint?",
+  "category_id": 2,
   "answers": [
               {
-                "answer": "ja",
-                "correct": true
+                "answer": "Heinz Fischer",
+                "correct": false
               },
               {
-                "answer": "nein",
-                "correct": false
-              }
+                "answer": "Alexander Van der Bellen",
+                "correct": true
+              },
+    {
+      "answer": "Norbert Hofer",
+      "correct": false
+    }
              ]
 }
 
 ###
 ###
 GET http://localhost:4000/api/question/category/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJXT0gifQ.-rN3Pz0nniFcS-jM8CaXjVJsWr3Kxj3KH3qTGh4p7vc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJQZXRlciJ9.PAgcZc5VBiK3dI2m-UF6WmbC27yAHAuWug4JGFC0LDM
 Content-Type: application/json
 
+###
+
+GET http://localhost:4000/api/question/1/answer/3
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJQZXRlciJ9.PAgcZc5VBiK3dI2m-UF6WmbC27yAHAuWug4JGFC0LDM
+Content-Type: application/json
 ###

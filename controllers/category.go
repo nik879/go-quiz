@@ -17,9 +17,10 @@ func ShowAllCategories(w http.ResponseWriter, r *http.Request){
 	//check for timestamp
 	categories,err := models.ShowCategories()
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"SQL error").JSON(w,http.StatusOK)
 	} else {
-		_=json.NewEncoder(w).Encode(categories)
+		//_=json.NewEncoder(w).Encode(categories)
+		NewResponse(true,"request ok").Attr("categories",categories).JSON(w,http.StatusOK)
 	}
 }
 func CreateCategory(w http.ResponseWriter, r *http.Request){
@@ -31,9 +32,10 @@ func CreateCategory(w http.ResponseWriter, r *http.Request){
 	_ = json.NewDecoder(r.Body).Decode(&category)
 	err := category.CreateNewCategory()
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"SQL error").JSON(w,http.StatusOK)
 	} else {
-		_= json.NewEncoder(w).Encode("successfully created new category")
+		NewResponse(true,"successfully created new category").JSON(w,http.StatusOK)
+		//_= json.NewEncoder(w).Encode("successfully created new category")
 	}
 }
 func EditCategory(w http.ResponseWriter, r *http.Request){
@@ -46,14 +48,14 @@ func EditCategory(w http.ResponseWriter, r *http.Request){
 	_=json.NewDecoder(r.Body).Decode(&category)
 	id,err := strconv.Atoi(parameters["id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong Parameters").JSON(w,http.StatusOK)
 	} else {
 		category.ID = id
 		err = category.EditCategory()
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL error").JSON(w,http.StatusOK)
 		} else {
-			_= json.NewEncoder(w).Encode("successfully edited the category")
+			NewResponse(true,"successfully edited the category").JSON(w,http.StatusOK)
 		}
 	}
 
@@ -67,14 +69,14 @@ func DeleteCategory(w http.ResponseWriter, r *http.Request){
 	var category models.Category
 	id,err := strconv.Atoi(parameters["id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong Parameters").JSON(w,http.StatusOK)
 	} else {
 		category.ID = id
 		err = category.DeleteCategory()
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 		} else {
-			_= json.NewEncoder(w).Encode("successfully deleted the category")
+			NewResponse(true,"successfully deleted the category").JSON(w,http.StatusOK)
 		}
 	}
 }

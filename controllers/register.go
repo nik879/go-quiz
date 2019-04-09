@@ -14,14 +14,14 @@ func RegisterUser(w http.ResponseWriter, r *http.Request){
 		if len(user.Username) >= 3 && len(user.Password) >= 8 {
 			err := user.Register()
 			if err != nil {
-				_=json.NewEncoder(w).Encode(err)
+				NewResponse(false,"Username already exists").JSON(w,http.StatusOK)
 			} else {
-				_=json.NewEncoder(w).Encode("Created User")
+				NewResponse(true,"New User Created").JSON(w,http.StatusCreated)
 			}
 		} else {
-			_=json.NewEncoder(w).Encode("error code")
+			NewResponse(false,"Username must be at least 3 characters long and password 8!").JSON(w,http.StatusOK)
 		}
 	} else {
-		_=json.NewEncoder(w).Encode("wrong params")
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusBadRequest)
 	}
 }

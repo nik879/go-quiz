@@ -35,6 +35,13 @@ func GetAllQuestions() (allquestions []Question, err error) {
 	return
 }
 
+func AnswerQuestion(questionID int, answerID int) (success bool, err error){
+	db:= migration.GetDbInstance()
+	answerQuestionQuery := db.QueryRow("SELECT correct FROM answers WHERE questionID=? AND ID=?;",questionID, answerID)
+	err = answerQuestionQuery.Scan(&success)
+	return
+}
+
 func GetRandomQuestionPerCategory(categoryID int) (randomQuestion Question, err error){
 	db := migration.GetDbInstance()
 	randQuestionQuery, err := db.Query("SELECT * FROM questions WHERE categoryID=? ORDER BY RAND() LIMIT 1;",categoryID)

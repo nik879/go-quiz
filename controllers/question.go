@@ -85,7 +85,25 @@ func DeleteQuestion(w http.ResponseWriter, r *http.Request){
 
 }
 func AnswerQuestion(w http.ResponseWriter, r *http.Request){
-
+	w.Header().Set("Content-Type", "application/json")
+	decoded := context.Get(r,"decoded")
+	fmt.Println(decoded)
+	//check for timestamp
+	parameters := mux.Vars(r)
+	questionID,err := strconv.Atoi(parameters["id"])
+	if err != nil{
+		_=json.NewEncoder(w).Encode(err)
+	}
+	answerID,err := strconv.Atoi(parameters["answer_id"])
+	if err != nil{
+		_=json.NewEncoder(w).Encode(err)
+	}
+	success,err := models.AnswerQuestion(questionID,answerID)
+	if err != nil {
+		_=json.NewEncoder(w).Encode(err)
+	} else {
+		_=json.NewEncoder(w).Encode(success)
+	}
 }
 func GetRandomQuestion(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
