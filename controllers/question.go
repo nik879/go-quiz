@@ -17,9 +17,9 @@ func ShowAllQuestions(w http.ResponseWriter, r *http.Request){
 	//check for timestamp
 	questions,err := models.GetAllQuestions()
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 	} else {
-		_=json.NewEncoder(w).Encode(questions)
+		NewResponse(true,"Successfully got all questions.").Attr("questions",questions).JSON(w,http.StatusOK)
 	}
 }
 func CreateQuestion(w http.ResponseWriter, r *http.Request){
@@ -31,9 +31,9 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request){
 	_ = json.NewDecoder(r.Body).Decode(&question)
 	err := question.CreateNewQuestion()
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 	} else {
-		_= json.NewEncoder(w).Encode("successfully created new question")
+		NewResponse(true,"Successfully created new question.").JSON(w,http.StatusOK)
 	}
 }
 func EditQuestion(w http.ResponseWriter, r *http.Request){
@@ -46,7 +46,7 @@ func EditQuestion(w http.ResponseWriter, r *http.Request){
 	var question models.Question
 	id,err := strconv.Atoi(parameters["id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusOK)
 	} else {
 		_ = json.NewDecoder(r.Body).Decode(&question)
 		question.ID = id
