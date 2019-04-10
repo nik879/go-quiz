@@ -9,7 +9,7 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
-  "username": "Makita",
+  "username": "Sadric",
   "password" : "P@ssw0rd"
 }
 
@@ -18,7 +18,7 @@ POST http://localhost:4000/auth/login
 Content-Type: application/json
 
 {
-  "username": "Christian",
+  "username": "Sadric",
   "password" : "P@ssw0rd"
 }
 
@@ -36,7 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyM
 Content-Type: application/json
 
 {
-"category_name": "Sport"
+"category_name": "Fleisch"
 }
 
 

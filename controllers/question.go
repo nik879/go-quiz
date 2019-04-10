@@ -52,13 +52,13 @@ func EditQuestion(w http.ResponseWriter, r *http.Request){
 		question.ID = id
 		err = question.DeleteQuestion()
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 		}
 		err = question.CreateNewQuestion()
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 		} else {
-			_= json.NewEncoder(w).Encode("successfully edited this question")
+			NewResponse(true,"Successfully edited this question.").JSON(w,http.StatusOK)
 		}
 	}
 
@@ -72,14 +72,14 @@ func DeleteQuestion(w http.ResponseWriter, r *http.Request){
 	var question models.Question
 	id,err := strconv.Atoi(parameters["id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusOK)
 	} else {
 		question.ID = id
 		err = question.DeleteQuestion()
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 		} else {
-			_= json.NewEncoder(w).Encode("successfully deleted this question")
+			NewResponse(true,"Successfully deleted this question.").JSON(w,http.StatusOK)
 		}
 	}
 
@@ -92,17 +92,17 @@ func AnswerQuestion(w http.ResponseWriter, r *http.Request){
 	parameters := mux.Vars(r)
 	questionID,err := strconv.Atoi(parameters["id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusOK)
 	}
 	answerID,err := strconv.Atoi(parameters["answer_id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusOK)
 	}
 	success,err := models.AnswerQuestion(questionID,answerID)
 	if err != nil {
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 	} else {
-		_=json.NewEncoder(w).Encode(success)
+		NewResponse(true,"Question answer method successfully.").Attr("correct_answer",success).JSON(w,http.StatusOK)
 	}
 }
 func GetRandomQuestion(w http.ResponseWriter, r *http.Request){
@@ -113,13 +113,13 @@ func GetRandomQuestion(w http.ResponseWriter, r *http.Request){
 	parameters := mux.Vars(r)
 	categoryID, err := strconv.Atoi(parameters["cat_id"])
 	if err != nil{
-		_=json.NewEncoder(w).Encode(err)
+		NewResponse(false,"Wrong parameters").JSON(w,http.StatusOK)
 	} else {
 		question,err := models.GetRandomQuestionPerCategory(categoryID)
 		if err != nil{
-			_=json.NewEncoder(w).Encode(err)
+			NewResponse(false,"SQL Error").JSON(w,http.StatusOK)
 		} else {
-			_=json.NewEncoder(w).Encode(question)
+			NewResponse(true,"Successfully got a random question.").Attr("question",question).JSON(w,http.StatusOK)
 		}
 	}
 }
