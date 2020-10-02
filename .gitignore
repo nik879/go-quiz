@@ -13,5 +13,9 @@
 
 
 .idea/
+.vscode/
 
 build/
+
+# Docker output
+.docker
