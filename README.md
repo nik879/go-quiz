@@ -26,3 +26,9 @@ The default environment variables for connecting with the database are:
 - DB_DATABASE=quizdb
 - DB_USERNAME=quizusr
 - DB_PASSWORD=quizpasswd
+
+
+
+#### code scanning test
+
+The commited code is also being tested with a code scanning tool
