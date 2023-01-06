@@ -32,6 +32,6 @@ func main(){
 		port := os.Getenv("HTTP_PORT")
 		address := os.Getenv("LISTEN_ADDR")
 		log.Printf("Starting server on %s:%s", address, port)
-		log.Fatal(http.ListenAndServe(address + ":" + port, handlers.CORS(handlers.AllowedHeaders([]string{"content-type", "username", "password", "Access-Control-Allow-Origin"}))(router.CreateRouter())))
+		log.Fatal(http.ListenAndServe(address + ":" + port, handlers.CORS(handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "Access-Control-Allow-Origin"}))(router.CreateRouter())))
 	}
 }
