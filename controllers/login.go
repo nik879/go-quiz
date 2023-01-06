@@ -26,7 +26,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request){
 		})
 		tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 		if err != nil{
-			NewResponse(false,"JWT error").JSON(w,http.StatusForbidden)
+			NewResponse(false,"JWT error").JSON(w,http.StatusOK)
 			//_=json.NewEncoder(w).Encode(err)
 		} else {
 			NewResponse(true,"successfully logged in").Attr("jwt", tokenString).JSON(w,http.StatusOK)
@@ -34,7 +34,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request){
 		}
 
 	} else {
-		NewResponse(false,"Username or Password is wrong").JSON(w, http.StatusUnauthorized)
+		NewResponse(false,"Username or Password is wrong").JSON(w, http.StatusOK)
 		//_=json.NewEncoder(w).Encode("Login unsuccessful")
 	}
 }
