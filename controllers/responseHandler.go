@@ -23,7 +23,6 @@ func NewResponse(success bool, message string, codes ...int) Response {
 	return r
 }
 
-
 // JSON marshals the Response struct to a JSON string and sets the HTTP Statuscode
 func (r Response) JSON(w http.ResponseWriter, statusCode ...int) {
 	if len(statusCode) == 1 {

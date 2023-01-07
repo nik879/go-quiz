@@ -12,6 +12,7 @@ import (
 )
 
 type MiddlewareFunc func(http.Handler) http.Handler
+
 func ValidateMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -29,22 +30,22 @@ func ValidateMiddleware(next http.Handler) http.Handler {
 					//jwt-sample is the JWT secret this should be changed to a secure secret
 					return []byte(os.Getenv("JWT_SECRET")), nil
 				})
-				if err != nil{
+				if err != nil {
 					log.Print(err)
-					_=json.NewEncoder(w).Encode(err.Error())
+					_ = json.NewEncoder(w).Encode(err.Error())
 					return
 				}
 				if token.Valid {
-					context.Set(r,"decoded", token.Claims)
-					next.ServeHTTP(w,r)
+					context.Set(r, "decoded", token.Claims)
+					next.ServeHTTP(w, r)
 				} else {
-					_=json.NewEncoder(w).Encode("Invalid authorization token")
+					_ = json.NewEncoder(w).Encode("Invalid authorization token")
 				}
 			} else {
-				_=json.NewEncoder(w).Encode("Invalid authorization token")
+				_ = json.NewEncoder(w).Encode("Invalid authorization token")
 			}
 		} else {
-			_=json.NewEncoder(w).Encode("An authorization header is required")
+			_ = json.NewEncoder(w).Encode("An authorization header is required")
 		}
 	})
 }

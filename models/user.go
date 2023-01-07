@@ -16,50 +16,49 @@ func CheckPasswordHash(password, hash string) bool {
 }
 
 type User struct {
-	ID			int		`json:"id,omitempty"`
-	Username	string 	`json:"username,omitempty"`
-	Password	string 	`json:"password,omitempty"`
+	ID       int    `json:"id,omitempty"`
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
 }
-
 
 func (u *User) Register() (err error) {
 	db := migration.GetDbInstance()
 	//defer db.Close()
-	stmtRegister,err := db.Prepare("INSERT INTO `users` (`username`, `pw_hash`) VALUES (?,?);")
+	stmtRegister, err := db.Prepare("INSERT INTO `users` (`username`, `pw_hash`) VALUES (?,?);")
 	defer stmtRegister.Close()
 	if err != nil {
 		return err
 	}
 
-	passwordHash,err := HashPassword(u.Password)
+	passwordHash, err := HashPassword(u.Password)
 	if err != nil {
 		return err
 	}
 
-	_,err = stmtRegister.Exec(u.Username,passwordHash)
+	_, err = stmtRegister.Exec(u.Username, passwordHash)
 	if err != nil {
 		return err
 	}
 
-	return nil;
+	return nil
 }
 
-func (u *User) Login() (b bool,err error){
+func (u *User) Login() (b bool, err error) {
 	db := migration.GetDbInstance()
 	//defer db.Close()
-	userQuery,err := db.Query("SELECT username, pw_hash FROM users WHERE username = ?;",u.Username)
+	userQuery, err := db.Query("SELECT username, pw_hash FROM users WHERE username = ?;", u.Username)
 	defer userQuery.Close()
-	if err != nil{
-		return false,err
+	if err != nil {
+		return false, err
 	}
-	for userQuery.Next(){
+	for userQuery.Next() {
 		var user User
-		err = userQuery.Scan(&user.Username,&user.Password)
-		if err != nil{
-			return false,err
+		err = userQuery.Scan(&user.Username, &user.Password)
+		if err != nil {
+			return false, err
 		}
-		validUser := CheckPasswordHash(u.Password,user.Password)
-		return validUser,nil
+		validUser := CheckPasswordHash(u.Password, user.Password)
+		return validUser, nil
 	}
-	return false,nil
+	return false, nil
 }

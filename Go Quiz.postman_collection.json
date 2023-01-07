@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"TestUser\",\r\n  \"password\" : \"P@ssw0rd\"\r\n}",
+					"raw": "{\r\n  \"username\": \"ae\",\r\n  \"password\" : \"P@ssw0rd\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"TestUser\",\r\n  \"password\" : \"P@ssw0rd\"\r\n}",
+					"raw": "{\r\n  \"username\": \"Stephan\",\r\n  \"password\" : \"P@ssw0rd\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,7 +92,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"category_name\": \"Programmieren\"\r\n}",
+					"raw": "{\r\n\"category_name\": \"Sport\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -122,7 +122,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"category_name\": \"NewName\"\r\n}",
+					"raw": "{\r\n  \"category_name\": \"Security\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -130,7 +130,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/category/1/edit",
+					"raw": "http://localhost:8080/api/category/2/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -139,7 +139,7 @@
 					"path": [
 						"api",
 						"category",
-						"1",
+						"2",
 						"edit"
 					]
 				}
@@ -195,7 +195,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"question\": \"Wer hält den achserekord im 100m Sprint?\",\r\n  \"category_id\": 1,\r\n  \"answers\": [\r\n    {\r\n      \"answer\": \"Heinz Fischer\",\r\n      \"correct\": false\r\n    },\r\n    {\r\n      \"answer\": \"Alexander Van der Bellen\",\r\n      \"correct\": false\r\n    },\r\n    {\r\n      \"answer\": \"Michael Herzog\",\r\n      \"correct\": true\r\n    },\r\n    {\r\n      \"answer\": \"Norbert Hofer\",\r\n      \"correct\": false\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"question\": \"Wer wurde 2022 Fussballweltmeister\",\r\n  \"category_id\": 5,\r\n  \"answers\": [\r\n    {\r\n      \"answer\": \"Frankreich\",\r\n      \"correct\": false\r\n    },\r\n    {\r\n      \"answer\": \"Argentinien\",\r\n      \"correct\": true\r\n    },\r\n    {\r\n        \"answer\": \"Belgien\",\r\n        \"correct\": false\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -225,7 +225,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"question\": \"Welche LV i?\",\r\n  \"category_id\": 1\r\n}",
+					"raw": "{\r\n  \"question\": \"Wer wurde 2018 Fussballweltmeister\",\r\n  \"category_id\": 5,\r\n  \"answers\": [\r\n            {\r\n                \"id\": 21,\r\n                \"answer\": \"Frankreich\",\r\n                \"correct\": true\r\n            },\r\n            {\r\n                \"id\": 22,\r\n                \"answer\": \"Argentinien\",\r\n                \"correct\": false\r\n            },\r\n            {\r\n                \"id\": 23,\r\n                \"answer\": \"Kroatien\",\r\n                \"correct\": false\r\n            }\r\n        ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -233,7 +233,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/question/5/edit",
+					"raw": "http://localhost:8080/api/question/12/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -242,7 +242,7 @@
 					"path": [
 						"api",
 						"question",
-						"5",
+						"12",
 						"edit"
 					]
 				}
@@ -255,7 +255,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/question/4/delete",
+					"raw": "http://localhost:8080/api/question/11/delete",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -264,7 +264,7 @@
 					"path": [
 						"api",
 						"question",
-						"4",
+						"11",
 						"delete"
 					]
 				}
@@ -315,6 +315,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Question - Get Specific Question",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/question/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question",
+						"12"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -322,7 +343,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJUZXN0VXNlciJ9.AbfVpm_ySPBE2OwInk_t2KdmIKijZGxvqQ1K05zwHNA",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjEyMzEyMywidXNlcm5hbWUiOiJTdGVwaGFuIn0.6MHiCaeZzwwn3One6Pb2OXRGi4y4f2EMiTzIJOghEqg",
 				"type": "string"
 			}
 		]
