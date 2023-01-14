@@ -3,8 +3,9 @@ package models
 import "github.com/gubesch/go-quiz/migration"
 
 type Category struct {
-	ID           int    `json:"id,omitempty"`
-	CategoryName string `json:"category_name,omitempty"`
+	ID           			int    `json:"id,omitempty"`
+	CategoryName 			string `json:"category_name,omitempty"`
+	CategoryDescription 	string `json:"category_description,omitempty"`
 }
 
 func ShowCategories() (allcategories []Category, err error) {
@@ -17,7 +18,7 @@ func ShowCategories() (allcategories []Category, err error) {
 	}
 	for categoryiesQuerie.Next() {
 		var category Category
-		err = categoryiesQuerie.Scan(&category.ID, &category.CategoryName)
+		err = categoryiesQuerie.Scan(&category.ID, &category.CategoryName, &category.CategoryDescription)
 		if err != nil {
 			return nil, err
 		}
@@ -29,12 +30,12 @@ func ShowCategories() (allcategories []Category, err error) {
 func (c *Category) CreateNewCategory() (err error) {
 	db := migration.GetDbInstance()
 	//defer db.Close()
-	stmtInsertCategory, err := db.Prepare("INSERT INTO `categories` (`category_name`) VALUES (?);")
+	stmtInsertCategory, err := db.Prepare("INSERT INTO `categories` (`category_name`, `category_description`) VALUES (?,?);")
 	defer stmtInsertCategory.Close()
 	if err != nil {
 		return
 	}
-	_, err = stmtInsertCategory.Exec(c.CategoryName)
+	_, err = stmtInsertCategory.Exec(c.CategoryName, c.CategoryDescription)
 	if err != nil {
 		return
 	}
@@ -44,12 +45,12 @@ func (c *Category) CreateNewCategory() (err error) {
 func (c *Category) EditCategory() (err error) {
 	db := migration.GetDbInstance()
 	//defer db.Close()
-	stmtEditCategory, err := db.Prepare("UPDATE categories SET category_name = ? WHERE categories.id = ?;")
+	stmtEditCategory, err := db.Prepare("UPDATE categories SET category_name = ?, category_description = ? WHERE categories.id = ?;")
 	defer stmtEditCategory.Close()
 	if err != nil {
 		return
 	}
-	_, err = stmtEditCategory.Exec(c.CategoryName, c.ID)
+	_, err = stmtEditCategory.Exec(c.CategoryName,c.CategoryDescription, c.ID)
 	if err != nil {
 		return
 	}

@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `categories` (
   ID INT NOT NULL AUTO_INCREMENT,
   category_name varchar(100),
+  category_description varchar(255),
   PRIMARY KEY (ID)
 );
 
