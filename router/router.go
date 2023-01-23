@@ -13,6 +13,10 @@ func CreateRouter() *mux.Router {
 
 	subrouter := router.PathPrefix("/api").Subrouter()
 
+	userRouter := subrouter.PathPrefix("/user").Subrouter()
+	userRouter.HandleFunc("", controllers.ShowAllUser).Methods("GET")
+	userRouter.HandleFunc("/{username}", controllers.DeleteUser).Methods("DELETE")
+
 	categoryRouter := subrouter.PathPrefix("/category").Subrouter()
 	categoryRouter.HandleFunc("", controllers.ShowAllCategories).Methods("GET")             //done
 	categoryRouter.HandleFunc("/create", controllers.CreateCategory).Methods("POST")        //done
