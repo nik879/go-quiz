@@ -17,7 +17,7 @@ func ShowAllUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		NewResponse(false, "SQL Error").JSON(w, http.StatusOK)
 	} else {
-		NewResponse(true, "Successfully got all users.").Attr("questions", users).JSON(w, http.StatusOK)
+		NewResponse(true, "Successfully got all users.").Attr("users", users).JSON(w, http.StatusOK)
 	}
 }
 
