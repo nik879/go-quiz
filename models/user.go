@@ -43,6 +43,23 @@ func (u *User) Register() (err error) {
 	return nil
 }
 
+func GetAllUsers() (allUsers []User, err error) {
+	db := migration.GetDbInstance()
+	userQuery, err := db.Query("SELECT username FROM users;")
+	if err != nil {
+		return nil, err
+	}
+	for userQuery.Next() {
+		var user User
+		err = userQuery.Scan(&user.Username)
+		if err != nil {
+			return nil, err
+		}
+		allUsers = append(allUsers, user)
+	}
+	return
+}
+
 func (u *User) Login() (b bool, err error) {
 	db := migration.GetDbInstance()
 	//defer db.Close()
@@ -61,4 +78,20 @@ func (u *User) Login() (b bool, err error) {
 		return validUser, nil
 	}
 	return false, nil
+}
+
+func (u *User) DeleteUser() (err error) {
+
+	db := migration.GetDbInstance()
+	//defer db.Close()
+	stmtDeleteCategory, err := db.Prepare("DELETE FROM users WHERE username=?;")
+	defer stmtDeleteCategory.Close()
+	if err != nil {
+		return
+	}
+	_, err = stmtDeleteCategory.Exec(u.Username)
+	if err != nil {
+		return
+	}
+	return nil
 }
